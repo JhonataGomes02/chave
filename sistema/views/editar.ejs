@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Produto - SAEP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f3f4f6;
+        }
+
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            color: #1f2937;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content { flex: 1; }
+
+        nav {
+            background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+            padding: 15px 40px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        nav a:hover { background: rgba(255, 255, 255, 0.25); }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 22px;
+            font-weight: 600;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 i { color: #d97706; } /* Cor destaque para o ícone de editar */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width { grid-column: span 2; }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4b5563;
+        }
+
+        input, textarea {
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            background: #f9fafb;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+            outline: none;
+        }
+
+        textarea { resize: vertical; height: 100px; }
+
+        .btn-submit {
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .btn-submit:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 20px 0;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <nav>
+            <span style="font-weight: 700; font-size: 20px; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-boxes-stacked"></i> SAEP Estoque
+            </span>
+            <a href="/cadastro"><i class="fa-solid fa-arrow-left"></i> Voltar ao Catálogo</a>
+        </nav>
+
+        <div class="container">
+            <div class="card">
+                <h2><i class="fa-solid fa-pen-to-square"></i> Editando Produto: #<%= produto.id %></h2>
+                
+                <form action="/cadastro/editar/<%= produto.id %>" method="POST">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Nome do Produto</label>
+                            <input type="text" name="nome" value="<%= produto.nome %>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Marca</label>
+                            <input type="text" name="marca" value="<%= produto.marca %>" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Estoque Mínimo Alvo</label>
+                            <input type="number" name="estoque_minimo" value="<%= produto.estoque_minimo %>" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Descrição do Item</label>
+                            <textarea name="descricao" required><%= produto.descricao %></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">
+                        <i class="fa-solid fa-floppy-disk"></i> Salvar Alterações no Banco de Dados
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+    Desenvolvido por <strong>Jhonata Enzo Silva Gomes</strong> © 2026
+    <br>
+    <span>
+        Avaliação Prática SAEP - SENAI | Sistema de Gestão de Estoque
+    </span>
+</footer>
+
+</body>
+
+</html>

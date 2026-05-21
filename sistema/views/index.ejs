@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - SAEP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #7c3aed;
+            --bg: #f3f4f6;
+            --surface: #ffffff;
+        }
+
+        /* Estrutura para manter footer sempre embaixo */
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            color: #1f2937;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        nav {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 15px 50px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo:hover i {
+            animation: pulseIcon 0.8s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseIcon {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.15); }
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-weight: 500;
+        }
+
+        .user-info a {
+            color: var(--primary);
+            text-decoration: none;
+            background: #ffffff;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .user-info a:hover {
+            background: #f3f4f6;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-weight: 700;
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .grid {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            flex: 1;
+            background: var(--surface);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #f3f4f6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: transparent;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card i {
+            font-size: 60px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card:hover i {
+            transform: translateY(-8px) scale(1.15) rotate(8deg);
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 24px;
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: #6b7280;
+            font-size: 15px;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        .card .btn-go {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 25px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 15px;
+            transition: 0.3s;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: #eef2ff;
+        }
+
+        .card:hover .btn-go {
+            background: var(--primary);
+            color: white;
+        }
+
+        .card .btn-go i {
+            font-size: 15px;
+            margin: 0;
+            background: none;
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: initial;
+            color: inherit;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .btn-go i {
+            transform: translateX(5px);
+        }
+
+        /* 🌟 FOOTER INTERNO (Fundo Branco Corporativo) */
+        footer {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 20px 0;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+         footer strong {
+    font-weight: bold;
+}
+
+footer span {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+        footer i {
+            color: #ef4444;
+            margin: 0 4px;
+            animation: pulseHeart 1.5s infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulseHeart {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <nav>
+            <div class="logo"><i class="fa-solid fa-boxes-stacked"></i> SAEP Estoque</div>
+            <div class="user-info">
+                <span><i class="fa-solid fa-user-circle"></i> Olá, <%= usuario.nome %></span>
+                <a href="/logout"><i class="fa-solid fa-sign-out-alt"></i> Sair</a>
+            </div>
+        </nav>
+        <div class="container">
+            <h1>Painel Principal</h1>
+            <p style="color: #6b7280; font-size: 16px;">Selecione o módulo que deseja acessar hoje:</p>
+            <div class="grid">
+                <a href="/cadastro" class="card">
+                    <i class="fa-solid fa-tools"></i>
+                    <h3>Cadastro de Produtos</h3>
+                    <p>Adicione novas ferramentas, edite detalhes e gerencie todo o seu catálogo com facilidade.</p>
+                    <span class="btn-go">Acessar Módulo <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+                <a href="/estoque" class="card">
+                    <i class="fa-solid fa-dolly"></i>
+                    <h3>Gestão de Estoque</h3>
+                    <p>Registre entradas e saídas, monitore o histórico e fique de olho nos alertas de reposição.</p>
+                    <span class="btn-go">Acessar Módulo <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+     <footer>
+    Desenvolvido por <strong>Jhonata Enzo Silva Gomes</strong> © 2026
+    <br>
+    <span>
+        Avaliação Prática SAEP - SENAI | Sistema de Gestão de Estoque
+    </span>
+</footer>
+</body>
+
+</html>
