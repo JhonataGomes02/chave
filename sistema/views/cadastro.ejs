@@ -2,10 +2,16 @@
 <html lang="pt-br">
 
 <head>
+    <!--
+        Template EJS para a página de cadastro/listagem de produtos.
+        Comentários abaixo explicam as principais seções: meta, estilos,
+        formulário de cadastro, busca, tabela e footer
+    -->
     <meta charset="UTF-8">
     <title>Cadastro - SAEP</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Estilos internos: variáveis CSS, layout e componentes da página -->
     <style>
         :root {
             --primary: #4f46e5;
@@ -222,7 +228,6 @@
             transform: translateY(-1px);
         }
 
-        /* 🌟 FOOTER INTERNO */
         footer {
             background: white;
             border-top: 1px solid #e5e7eb;
@@ -271,6 +276,7 @@
 
 <body>
     <div class="main-content">
+        <!-- Barra de navegação superior com título e link para o painel -->
         <nav>
             <span style="font-weight: 700; font-size: 20px; display: flex; align-items: center; gap: 10px;">
                 <i class="fa-solid fa-boxes-stacked"></i> SAEP Estoque
@@ -280,6 +286,7 @@
 
         <div class="container">
             <div class="card">
+                <!-- Formulário de cadastro: envia POST para /cadastro/adicionar -->
                 <h2><i class="fa-solid fa-plus-circle"></i> Cadastrar Novo Produto</h2>
                 <form action="/cadastro/adicionar" method="POST" class="form-grid">
                     <div class="form-group">
@@ -304,9 +311,33 @@
                     </button>
                 </form>
             </div>
-
-            <div class="table-responsive">
-                <table>
+            
+            <div class="search-container" style="margin-bottom: 25px;">
+            <!-- Campo de busca: realiza GET em /cadastro com o parâmetro 'busca' -->
+            <form action="/cadastro" method="GET" style="display: flex; gap: 10px; align-items: center;">
+                <div style="flex: 1;">
+                    <input 
+                        type="text" 
+                        name="busca" 
+                        placeholder="Digite o termo de busca (Ex: Tramontina, Chave)..." 
+                        style="width: 100%;" 
+                        value="<%= termo %>"
+                    >
+                </div>
+                <button type="submit" class="btn-submit" style="width: auto; padding: 12px 24px;">
+                    <i class="fa-solid fa-search"></i> Buscar
+                </button>
+                
+                <% if (termo) { %>
+                    <a href="/cadastro" class="btn-danger" style="padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-times"></i> Limpar
+                    </a>
+                <% } %>
+            </form>
+        </div>
+        <!-- Tabela de resultados: renderiza a lista `produtos` fornecida pelo servidor -->
+        <div class="table-responsive">
+            <table>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -319,6 +350,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Loop EJS: para cada produto em `produtos` renderiza uma linha -->
                         <% produtos.forEach(function(p) { %>
                             <tr>
                                 <td>
@@ -340,6 +372,7 @@
                                     <%= p.estoque_minimo %>
                                 </td>
                                 <td>
+                                    <!-- Ações: editar e deletar o produto (rotas com o id do produto) -->
                                     <a href="/cadastro/editar/<%= p.id %>" class="btn-edit"
                                         style="border-radius: 8px; padding: 8px 12px; display: inline-block; transition: 0.3s; text-decoration: none; margin-right: 5px;"
                                         title="Editar Produto">
@@ -361,6 +394,7 @@
     </div>
 
     <footer>
+        <!-- Rodapé com créditos e informação do projeto -->
         Desenvolvido por <strong>Jhonata Enzo Silva Gomes</strong> © 2026
         <br>
         <span>
